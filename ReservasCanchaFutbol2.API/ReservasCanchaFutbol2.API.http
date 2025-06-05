@@ -1,0 +1,6 @@
+@ReservasCanchaFutbol2.API_HostAddress = http://localhost:5069
+
+GET {{ReservasCanchaFutbol2.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
