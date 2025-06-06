@@ -15,4 +15,23 @@ public class CanchaRepository : ICanchaRepository
         cancha.Id = _canchas.Count > 0 ? _canchas.Max(c => c.Id) + 1 : 1;// nuevo id a la cancha que sea el siguiente numero, el maximo actual + 1 si no hay todavia, id=1
         _canchas.Add(cancha);
     }
+    public void Actualizar(Cancha cancha)
+    {
+        var existente = _canchas.FirstOrDefault(c => c.Id == cancha.Id);
+        if (existente != null)
+        {
+            existente.Nombre = cancha.Nombre;
+            existente.Tipo = cancha.Tipo;
+        }
+    }
+
+    public void Eliminar(int id)
+    {
+        var cancha = _canchas.FirstOrDefault(c => c.Id == id);
+        if (cancha != null)
+        {
+            _canchas.Remove(cancha);
+        }
+    }
+
 }
