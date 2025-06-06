@@ -14,8 +14,6 @@ public class CanchaController : ControllerBase
         _service = service;
     }
 
-    [HttpGet]
-    public IActionResult Get() => Ok(_service.ObtenerTodas());
 
     [HttpPost]
     public IActionResult Post([FromBody] Cancha cancha)
@@ -23,14 +21,10 @@ public class CanchaController : ControllerBase
         var creada = _service.Crear(cancha);
         return CreatedAtAction(nameof(Get), new { id = creada.Id }, creada);
     }
-    [HttpGet("{id}")]
-    public ActionResult<Cancha> ObtenerPorId(int id)
-    {
-        var cancha = _service.ObtenerPorId(id);
-        return cancha is null ? NotFound() : Ok(cancha);
-    }
+    [HttpGet]
+    public IActionResult Get() => Ok(_service.ObtenerTodas());
 
-    [HttpPut("{id}")]
+    [HttpPut]
     public IActionResult Actualizar(int id, [FromBody] Cancha cancha)
     {
         var existente = _service.ObtenerPorId(id);
@@ -42,7 +36,7 @@ public class CanchaController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete]
     public IActionResult Eliminar(int id)
     {
         var cancha = _service.ObtenerPorId(id);
