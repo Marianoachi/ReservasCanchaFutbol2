@@ -6,4 +6,8 @@ public interface ICanchaService
 {
     IEnumerable<Cancha> ObtenerTodas();
     Cancha Crear(Cancha cancha);
+    Cancha? ObtenerPorId(int id);
+    void Actualizar(Cancha cancha);
+    void Eliminar(int id);
+
 }

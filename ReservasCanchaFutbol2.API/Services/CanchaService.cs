@@ -18,4 +18,10 @@ public class CanchaService : ICanchaService
         _repo.Crear(cancha);
         return cancha;
     }
+    public Cancha? ObtenerPorId(int id) => _repo.ObtenerPorId(id);
+
+    public void Actualizar(Cancha cancha) => _repo.Actualizar(cancha);
+
+    public void Eliminar(int id) => _repo.Eliminar(id);
+
 }
