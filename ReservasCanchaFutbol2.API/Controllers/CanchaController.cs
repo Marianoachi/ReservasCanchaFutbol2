@@ -23,5 +23,35 @@ public class CanchaController : ControllerBase
         var creada = _service.Crear(cancha);
         return CreatedAtAction(nameof(Get), new { id = creada.Id }, creada);
     }
+    [HttpGet("{id}")]
+    public ActionResult<Cancha> ObtenerPorId(int id)
+    {
+        var cancha = _service.ObtenerPorId(id);
+        return cancha is null ? NotFound() : Ok(cancha);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Actualizar(int id, [FromBody] Cancha cancha)
+    {
+        var existente = _service.ObtenerPorId(id);
+        if (existente is null)
+            return NotFound();
+
+        cancha.Id = id; // aseguramos que se mantenga el ID
+        _service.Actualizar(cancha);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Eliminar(int id)
+    {
+        var cancha = _service.ObtenerPorId(id);
+        if (cancha is null)
+            return NotFound();
+
+        _service.Eliminar(id);
+        return NoContent();
+    }
+
 }
 

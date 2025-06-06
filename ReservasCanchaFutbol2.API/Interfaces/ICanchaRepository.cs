@@ -7,4 +7,7 @@ public interface ICanchaRepository
     IEnumerable<Cancha> ObtenerTodas(); //devuelvo una lista de todas las canchas
     Cancha? ObtenerPorId(int id); //busco y devuelvo el id de la cancha
     void Crear(Cancha cancha); //recibo el objeto cancha y lo guardo
+    void Actualizar(Cancha cancha);
+    void Eliminar(int id);
+
 }
