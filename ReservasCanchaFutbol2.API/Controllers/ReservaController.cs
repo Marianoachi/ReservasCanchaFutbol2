@@ -13,8 +13,6 @@ public class ReservaController : ControllerBase
         _service = service;
     }
 
-    [HttpGet]
-    public IActionResult Get() => Ok(_service.ObtenerTodas());
 
     [HttpPost]
     public IActionResult Post(int canchaId, int clienteId, DateTime fechaHora, int duracionHoras)
