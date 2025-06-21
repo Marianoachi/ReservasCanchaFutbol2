@@ -9,7 +9,9 @@ namespace ReservasCanchaFutbol2.Desktop.Models
     public class CrearReservaRequest
     {
         public int CanchaId { get; set; }
+        public string ClienteNombre { get; set; }    // ← Añade esto
         public DateTime FechaHora { get; set; }
         public int DuracionHoras { get; set; }
     }
+
 }

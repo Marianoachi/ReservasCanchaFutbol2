@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.dgvReservas = new System.Windows.Forms.DataGridView();
+            this.dataGridViewReservas = new System.Windows.Forms.DataGridView();
             this.txtCanchaId = new System.Windows.Forms.TextBox();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,7 +40,9 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.cmbCanchas = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvReservas)).BeginInit();
+            this.btnCargar = new System.Windows.Forms.Button();
+            this.txtCliente = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReservas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHoras)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,18 +54,18 @@
             this.label1.Size = new System.Drawing.Size(0, 16);
             this.label1.TabIndex = 0;
             // 
-            // dgvReservas
+            // dataGridViewReservas
             // 
-            this.dgvReservas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvReservas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReservas.Location = new System.Drawing.Point(38, 306);
-            this.dgvReservas.Name = "dgvReservas";
-            this.dgvReservas.ReadOnly = true;
-            this.dgvReservas.RowHeadersWidth = 51;
-            this.dgvReservas.RowTemplate.Height = 24;
-            this.dgvReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReservas.Size = new System.Drawing.Size(514, 150);
-            this.dgvReservas.TabIndex = 6;
+            this.dataGridViewReservas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewReservas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewReservas.Location = new System.Drawing.Point(132, 309);
+            this.dataGridViewReservas.Name = "dataGridViewReservas";
+            this.dataGridViewReservas.ReadOnly = true;
+            this.dataGridViewReservas.RowHeadersWidth = 51;
+            this.dataGridViewReservas.RowTemplate.Height = 24;
+            this.dataGridViewReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewReservas.Size = new System.Drawing.Size(514, 150);
+            this.dataGridViewReservas.TabIndex = 6;
             // 
             // txtCanchaId
             // 
@@ -171,11 +173,30 @@
             this.cmbCanchas.TabIndex = 19;
             this.cmbCanchas.SelectedIndexChanged += new System.EventHandler(this.cmbCanchas_SelectedIndexChanged);
             // 
+            // btnCargar
+            // 
+            this.btnCargar.Location = new System.Drawing.Point(172, 252);
+            this.btnCargar.Name = "btnCargar";
+            this.btnCargar.Size = new System.Drawing.Size(75, 23);
+            this.btnCargar.TabIndex = 20;
+            this.btnCargar.Text = "Cargar";
+            this.btnCargar.UseVisualStyleBackColor = true;
+            this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
+            // 
+            // txtCliente
+            // 
+            this.txtCliente.Location = new System.Drawing.Point(310, 83);
+            this.txtCliente.Name = "txtCliente";
+            this.txtCliente.Size = new System.Drawing.Size(100, 22);
+            this.txtCliente.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(865, 485);
+            this.Controls.Add(this.txtCliente);
+            this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.cmbCanchas);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnEliminar);
@@ -186,12 +207,13 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dtpFecha);
             this.Controls.Add(this.txtCanchaId);
-            this.Controls.Add(this.dgvReservas);
+            this.Controls.Add(this.dataGridViewReservas);
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.Cross;
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvReservas)).EndInit();
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReservas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHoras)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -201,7 +223,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgvReservas;
+        private System.Windows.Forms.DataGridView dataGridViewReservas;
         private System.Windows.Forms.TextBox txtCanchaId;
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.Label label2;
@@ -212,6 +234,8 @@
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.ComboBox cmbCanchas;
+        private System.Windows.Forms.Button btnCargar;
+        private System.Windows.Forms.TextBox txtCliente;
     }
 }
 
