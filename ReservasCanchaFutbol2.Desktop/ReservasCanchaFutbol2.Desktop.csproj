@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="Models\Cancha.cs" />
     <Compile Include="Models\CrearReservaRequest.cs" />
+    <Compile Include="Models\Reserva.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

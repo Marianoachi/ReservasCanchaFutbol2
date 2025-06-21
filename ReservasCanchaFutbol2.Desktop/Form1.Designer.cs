@@ -30,12 +30,10 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.dgvReservas = new System.Windows.Forms.DataGridView();
-            this.txtClienteId = new System.Windows.Forms.TextBox();
             this.txtCanchaId = new System.Windows.Forms.TextBox();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.nudHoras = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.btnCrear = new System.Windows.Forms.Button();
@@ -66,13 +64,6 @@
             this.dgvReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvReservas.Size = new System.Drawing.Size(514, 150);
             this.dgvReservas.TabIndex = 6;
-            // 
-            // txtClienteId
-            // 
-            this.txtClienteId.Location = new System.Drawing.Point(267, 48);
-            this.txtClienteId.Name = "txtClienteId";
-            this.txtClienteId.Size = new System.Drawing.Size(100, 22);
-            this.txtClienteId.TabIndex = 7;
             // 
             // txtCanchaId
             // 
@@ -108,15 +99,6 @@
             this.label3.Size = new System.Drawing.Size(69, 16);
             this.label3.TabIndex = 11;
             this.label3.Text = "Cancha ID";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(264, 29);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 16);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Cliente ID";
             // 
             // nudHoras
             // 
@@ -200,12 +182,10 @@
             this.Controls.Add(this.btnCrear);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.nudHoras);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dtpFecha);
             this.Controls.Add(this.txtCanchaId);
-            this.Controls.Add(this.txtClienteId);
             this.Controls.Add(this.dgvReservas);
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.Cross;
@@ -222,12 +202,10 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvReservas;
-        private System.Windows.Forms.TextBox txtClienteId;
         private System.Windows.Forms.TextBox txtCanchaId;
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown nudHoras;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnCrear;
