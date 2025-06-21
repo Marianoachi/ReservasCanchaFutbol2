@@ -1,41 +1,50 @@
-﻿using ReservasCanchaFutbol2.API.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ReservasCanchaFutbol2.API.Data;
 using ReservasCanchaFutbol2.API.Interfaces;
+using ReservasCanchaFutbol2.API.Models;
 
-namespace ReservasCanchaFutbol.API.Repositories;
-public class ReservaRepository : IReservaRepository
+namespace ReservasCanchaFutbol2.API.Repositories
 {
-    private readonly List<Reserva> _reservas = new(); //simulo sql despues la borro
-
-    public IEnumerable<Reserva> ObtenerTodas() => _reservas; //lista de las reservas
-
-    public Reserva? ObtenerPorId(int id) => _reservas.FirstOrDefault(r => r.Id == id);// buso la reserva por su id, null si no encuentra
-
-    public void Crear(Reserva reserva)
+    public class ReservaRepository : IReservaRepository
     {
-        reserva.Id = _reservas.Count > 0 ? _reservas.Max(r => r.Id) + 1 : 1;// le asigno id unico, toma el mas alto y +1, si no hay id = 1. La agrega a la lista 
-        _reservas.Add(reserva);
-    }
-
-
-    public void Actualizar(Reserva reserva)
-    {
-        var existente = _reservas.FirstOrDefault(r => r.Id == reserva.Id);
-        if (existente != null)
+        private readonly ReservasDbContext _ctx;
+        public ReservaRepository(ReservasDbContext ctx)
         {
-            existente.CanchaId = reserva.CanchaId;
-            existente.ClienteId = reserva.ClienteId;
-            existente.FechaHora = reserva.FechaHora;
-            existente.DuracionHoras = reserva.DuracionHoras;
+            _ctx = ctx;
+        }
+
+        public IEnumerable<Reserva> ObtenerTodas()
+        {
+            return _ctx.Reservas.ToList();
+        }
+
+        public Reserva? ObtenerPorId(int id)
+        {
+            return _ctx.Reservas.Find(id);
+        }
+
+        public void Crear(Reserva reserva)
+        {
+            _ctx.Reservas.Add(reserva);
+            _ctx.SaveChanges();
+        }
+
+        public void Actualizar(Reserva reserva)
+        {
+            _ctx.Reservas.Update(reserva);
+            _ctx.SaveChanges();
+        }
+
+        public void Eliminar(int id)
+        {
+            var entidad = _ctx.Reservas.Find(id);
+            if (entidad != null)
+            {
+                _ctx.Reservas.Remove(entidad);
+                _ctx.SaveChanges();
+            }
         }
     }
-
-    public void Eliminar(int id)
-    {
-        var reserva = _reservas.FirstOrDefault(r => r.Id == id);
-        if (reserva != null)
-        {
-            _reservas.Remove(reserva);
-        }
-    }
-
 }
