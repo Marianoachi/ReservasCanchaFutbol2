@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
 using ReservasCanchaFutbol2.API.Interfaces;
 using ReservasCanchaFutbol2.API.Models;
 
@@ -13,14 +14,22 @@ namespace ReservasCanchaFutbol2.API.Services
             _repo = repo;
         }
 
-        public IEnumerable<Reserva> ObtenerTodas() => _repo.ObtenerTodas();
+        public IEnumerable<Reserva> ObtenerTodas()
+        {
+            return _repo.ObtenerTodas();
+        }
 
-        public Reserva Crear(int canchaId, int clienteId, DateTime fechaHora, int duracionHoras)
+        public Reserva? ObtenerPorId(int id)
+        {
+            return _repo.ObtenerPorId(id);
+        }
+
+        public Reserva Crear(int canchaId, string clienteNombre, DateTime fechaHora, int duracionHoras)
         {
             var nueva = new Reserva
             {
                 CanchaId = canchaId,
-                ClienteId = clienteId,
+                ClienteNombre = clienteNombre,
                 FechaHora = fechaHora,
                 DuracionHoras = duracionHoras
             };
@@ -29,12 +38,14 @@ namespace ReservasCanchaFutbol2.API.Services
             return nueva;
         }
 
-        public Reserva? ObtenerPorId(int id) => _repo.ObtenerPorId(id);
+        public void Actualizar(Reserva reserva)
+        {
+            _repo.Actualizar(reserva);
+        }
 
-        public void Actualizar(Reserva reserva) => _repo.Actualizar(reserva);
-
-        public void Eliminar(int id) => _repo.Eliminar(id);
+        public void Eliminar(int id)
+        {
+            _repo.Eliminar(id);
+        }
     }
 }
-
-

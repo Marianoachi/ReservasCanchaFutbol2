@@ -1,37 +1,55 @@
-﻿using ReservasCanchaFutbol2.API.Interfaces;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ReservasCanchaFutbol2.API.Data;
+using ReservasCanchaFutbol2.API.Interfaces;
 using ReservasCanchaFutbol2.API.Models;
 
-namespace ReservasCanchaFutbol.API.Repositories;
-public class CanchaRepository : ICanchaRepository
+namespace ReservasCanchaFutbol2.API.Repositories
 {
-    private readonly List<Cancha> _canchas = new(); //para simular la bd e ir probando en swagger
-
-    public IEnumerable<Cancha> ObtenerTodas() => _canchas;//las canchas almacenadas en la lista
-
-    public Cancha? ObtenerPorId(int id) => _canchas.FirstOrDefault(c => c.Id == id); //busco la primera cancha q tenga el ID que le paso, retorna null si no encuentra
-
-    public void Crear(Cancha cancha)
+    public class CanchaRepository : ICanchaRepository
     {
-        cancha.Id = _canchas.Count > 0 ? _canchas.Max(c => c.Id) + 1 : 1;// nuevo id a la cancha que sea el siguiente numero, el maximo actual + 1 si no hay todavia, id=1
-        _canchas.Add(cancha);
-    }
-    public void Actualizar(Cancha cancha)
-    {
-        var existente = _canchas.FirstOrDefault(c => c.Id == cancha.Id);
-        if (existente != null)
+        private readonly ReservasDbContext _context;
+
+        public CanchaRepository(ReservasDbContext context)
         {
-            existente.Nombre = cancha.Nombre;
-            existente.Tipo = cancha.Tipo;
+            _context = context;
+        }
+
+        // Devuelve todas las canchas de la tabla
+        public IEnumerable<Cancha> ObtenerTodas()
+        {
+            return _context.Canchas.ToList();
+        }
+
+        // Busca una cancha por su Id o devuelve null
+        public Cancha? ObtenerPorId(int id)
+        {
+            return _context.Canchas.Find(id);
+        }
+
+        // Inserta una nueva cancha y guarda cambios
+        public void Crear(Cancha cancha)
+        {
+            _context.Canchas.Add(cancha);
+            _context.SaveChanges();
+        }
+
+        // Actualiza una cancha existente y guarda cambios
+        public void Actualizar(Cancha cancha)
+        {
+            _context.Canchas.Update(cancha);
+            _context.SaveChanges();
+        }
+
+        // Elimina la cancha con el Id dado (si existe) y guarda cambios
+        public void Eliminar(int id)
+        {
+            var entidad = _context.Canchas.Find(id);
+            if (entidad != null)
+            {
+                _context.Canchas.Remove(entidad);
+                _context.SaveChanges();
+            }
         }
     }
-
-    public void Eliminar(int id)
-    {
-        var cancha = _canchas.FirstOrDefault(c => c.Id == id);
-        if (cancha != null)
-        {
-            _canchas.Remove(cancha);
-        }
-    }
-
 }
