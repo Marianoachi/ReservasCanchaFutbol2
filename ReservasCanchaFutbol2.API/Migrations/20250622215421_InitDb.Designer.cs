@@ -11,8 +11,8 @@ using ReservasCanchaFutbol2.API.Data;
 namespace ReservasCanchaFutbol2.API.Migrations
 {
     [DbContext(typeof(ReservasDbContext))]
-    [Migration("20250620235110_InitReservas")]
-    partial class InitReservas
+    [Migration("20250622215421_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,29 @@ namespace ReservasCanchaFutbol2.API.Migrations
                     b.ToTable("Reservas");
                 });
 
+            modelBuilder.Entity("ReservasCanchaFutbol2.API.Data.Models.Cliente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clientes");
+                });
+
             modelBuilder.Entity("ReservasCanchaFutbol2.API.Models.Cancha", b =>
                 {
                     b.Property<int>("Id")
@@ -66,6 +89,25 @@ namespace ReservasCanchaFutbol2.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Canchas");
+                });
+
+            modelBuilder.Entity("ReservasCanchaFutbol2.API.Models.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Contraseña")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NombreUsuario")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Reserva", b =>
