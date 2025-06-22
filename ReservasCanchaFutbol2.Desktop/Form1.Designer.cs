@@ -57,14 +57,14 @@
             // 
             // txtCanchaId
             // 
-            this.txtCanchaId.Location = new System.Drawing.Point(12, 350);
+            this.txtCanchaId.Location = new System.Drawing.Point(12, 261);
             this.txtCanchaId.Name = "txtCanchaId";
             this.txtCanchaId.Size = new System.Drawing.Size(100, 22);
             this.txtCanchaId.TabIndex = 8;
             // 
             // dtpFecha
             // 
-            this.dtpFecha.Location = new System.Drawing.Point(310, 207);
+            this.dtpFecha.Location = new System.Drawing.Point(303, 91);
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(200, 22);
             this.dtpFecha.TabIndex = 9;
@@ -74,7 +74,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(307, 168);
+            this.label2.Location = new System.Drawing.Point(300, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 16);
             this.label2.TabIndex = 10;
@@ -84,7 +84,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 331);
+            this.label3.Location = new System.Drawing.Point(12, 230);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(69, 16);
             this.label3.TabIndex = 11;
@@ -93,7 +93,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(73, 168);
+            this.label5.Location = new System.Drawing.Point(67, 59);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(106, 16);
             this.label5.TabIndex = 14;
@@ -101,7 +101,7 @@
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(70, 252);
+            this.btnCrear.Location = new System.Drawing.Point(70, 138);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(75, 23);
             this.btnCrear.TabIndex = 15;
@@ -111,7 +111,7 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(564, 252);
+            this.btnEliminar.Location = new System.Drawing.Point(460, 138);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 16;
@@ -121,7 +121,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(310, 252);
+            this.btnEditar.Location = new System.Drawing.Point(303, 138);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(75, 23);
             this.btnEditar.TabIndex = 17;
@@ -131,7 +131,7 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(172, 252);
+            this.btnCargar.Location = new System.Drawing.Point(176, 138);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(75, 23);
             this.btnCargar.TabIndex = 20;
@@ -150,7 +150,7 @@
             // 
             this.cmbCanchas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCanchas.FormattingEnabled = true;
-            this.cmbCanchas.Location = new System.Drawing.Point(564, 160);
+            this.cmbCanchas.Location = new System.Drawing.Point(549, 59);
             this.cmbCanchas.Name = "cmbCanchas";
             this.cmbCanchas.Size = new System.Drawing.Size(121, 24);
             this.cmbCanchas.TabIndex = 19;
@@ -160,7 +160,7 @@
             // 
             this.dataGridViewReservas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewReservas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewReservas.Location = new System.Drawing.Point(132, 309);
+            this.dataGridViewReservas.Location = new System.Drawing.Point(132, 197);
             this.dataGridViewReservas.Name = "dataGridViewReservas";
             this.dataGridViewReservas.ReadOnly = true;
             this.dataGridViewReservas.RowHeadersWidth = 51;
@@ -171,7 +171,7 @@
             // 
             // nudHoras
             // 
-            this.nudHoras.Location = new System.Drawing.Point(79, 207);
+            this.nudHoras.Location = new System.Drawing.Point(70, 91);
             this.nudHoras.Maximum = new decimal(new int[] {
             24,
             0,
