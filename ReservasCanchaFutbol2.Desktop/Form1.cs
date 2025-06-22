@@ -304,6 +304,14 @@ namespace ReservasCanchaFutbol.UI
             }
         }
 
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

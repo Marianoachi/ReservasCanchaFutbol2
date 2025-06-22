@@ -4,8 +4,10 @@ using ReservasCanchaFutbol2.API.Data;
 using ReservasCanchaFutbol2.API.Interfaces;
 using ReservasCanchaFutbol2.API.Repositories;
 using ReservasCanchaFutbol2.API.Services;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // 1. Cadena de conexión y DbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
