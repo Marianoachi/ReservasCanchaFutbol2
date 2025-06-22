@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReservasCanchaFutbol2.API.Data;
 
@@ -10,9 +11,11 @@ using ReservasCanchaFutbol2.API.Data;
 namespace ReservasCanchaFutbol2.API.Migrations
 {
     [DbContext(typeof(ReservasDbContext))]
-    partial class ReservasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250621234323_AgregarEntidadCliente")]
+    partial class AgregarEntidadCliente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
@@ -86,25 +89,6 @@ namespace ReservasCanchaFutbol2.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Canchas");
-                });
-
-            modelBuilder.Entity("ReservasCanchaFutbol2.API.Models.Usuario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Contraseña")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NombreUsuario")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Reserva", b =>

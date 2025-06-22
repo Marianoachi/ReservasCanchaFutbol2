@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using ReservasCanchaFutbol2.API.Data.Models;
 using ReservasCanchaFutbol2.API.Models;
 
 namespace ReservasCanchaFutbol2.API.Data
@@ -13,6 +14,9 @@ namespace ReservasCanchaFutbol2.API.Data
 
         public DbSet<Cancha> Canchas { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+
 
         /// <summary>
         /// Inserta datos semilla si no hay ninguna Cancha registrada.
@@ -27,6 +31,17 @@ namespace ReservasCanchaFutbol2.API.Data
                     new Cancha { Nombre = "Cancha Techada", Tipo = "Fútbol 5", PrecioPorHora = 4000 }
                 );
                 context.SaveChanges();
+                if (!context.Usuarios.Any())
+                {
+                    context.Usuarios.Add(new Usuario
+                    {
+                        NombreUsuario = "admin",
+                        Contraseña = "1234"
+                    });
+
+                    context.SaveChanges();
+                }
+
             }
         }
     }
