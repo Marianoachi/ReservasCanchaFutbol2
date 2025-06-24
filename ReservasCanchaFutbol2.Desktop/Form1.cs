@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ReservasCanchaFutbol2.Desktop;
 using ReservasCanchaFutbol2.Desktop.Models;
 
 
@@ -14,34 +16,33 @@ namespace ReservasCanchaFutbol.UI
     public partial class Form1 : Form
     {
         private readonly HttpClient _httpClient;
-        private const string API_URL = "http://localhost:7259/api/reserva"; // Cambiar puerto si es necesario
+        private const string API_URL = "http://localhost:7259/api/reserva";
 
         public Form1()
         {
             InitializeComponent();
 
-            // 1) Crea un handler que acepte el certificado (solo en desarrollo)
             var handler = new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback =
                     HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             };
 
-            // 2) Inicializa HttpClient con el handler
             _httpClient = new HttpClient(handler)
             {
-                // 3) Apunta al puerto correcto
                 BaseAddress = new Uri("https://localhost:7259/")
             };
 
-            // 4) Liga el Load
             this.Load += Form1_Load;
+
+
 
         }
         private async void Form1_Load(object sender, EventArgs e)
         {
             await CargarReservas();
             await CargarCanchas();
+            lblUsuarioActual.Text = $"Usuario: {UsuarioActual.NombreUsuario}";
         }
 
 
@@ -51,13 +52,23 @@ namespace ReservasCanchaFutbol.UI
         {
             try
             {
-                var reservas = await _httpClient
-                    .GetFromJsonAsync<List<Reserva>>(
-                        "api/reserva",                               // <-- singular
+                List<Reserva> reservas;
+
+                if (UsuarioActual.NombreUsuario == "admin")
+                {
+                    reservas = await _httpClient.GetFromJsonAsync<List<Reserva>>(
+                        "api/reserva",
                         new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+                else
+                {
+                    var usuarioId = UsuarioActual.Id;
+                    reservas = await _httpClient.GetFromJsonAsync<List<Reserva>>(
+                        $"api/reserva?usuarioId={usuarioId}",
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
 
-
-                dataGridViewReservas.DataSource = reservas;
+                dgvReservas.DataSource = reservas;
             }
             catch (Exception ex)
             {
@@ -65,9 +76,14 @@ namespace ReservasCanchaFutbol.UI
                     $"Error al cargar reservas:\n{ex}\n\nInnerException:\n{ex.InnerException}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
+
+        public static class UsuarioActual
+        {
+            public static int Id;
+            public static string NombreUsuario;
+        }
 
         private async Task CargarCanchas()
         {
@@ -97,9 +113,6 @@ namespace ReservasCanchaFutbol.UI
 
         private async void btnCrear_Click(object sender, EventArgs e)
         {
-            // 1) Validaciones de entrada
-
-            // Validar selección de cancha
             if (cmbCanchas.SelectedItem == null || !(cmbCanchas.SelectedItem is Cancha))
             {
                 MessageBox.Show("Por favor seleccioná una cancha.",
@@ -107,14 +120,6 @@ namespace ReservasCanchaFutbol.UI
                 return;
             }
             var canchaSeleccionada = (Cancha)cmbCanchas.SelectedItem;
-
-            // Validar nombre de cliente
-            if (string.IsNullOrWhiteSpace(txtCliente.Text))
-            {
-                MessageBox.Show("El nombre del cliente no puede estar vacío.",
-                                "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
             // Validar fecha
             if (dtpFecha.Value < DateTime.Today)
@@ -132,16 +137,15 @@ namespace ReservasCanchaFutbol.UI
                 return;
             }
 
-            // 2) Construcción de la reserva
+            // construccion de la reserva
             var reserva = new CrearReservaRequest
             {
                 CanchaId = canchaSeleccionada.Id,
-                ClienteNombre = txtCliente.Text.Trim(),
                 FechaHora = dtpFecha.Value,
-                DuracionHoras = (int)nudHoras.Value
+                DuracionHoras = (int)nudHoras.Value,
+                UsuarioId = UsuarioActual.Id
             };
 
-            // 3) Llamada al API
             try
             {
                 var response = await _httpClient.PostAsJsonAsync("/api/reserva", reserva);
@@ -161,26 +165,22 @@ namespace ReservasCanchaFutbol.UI
 
         private async void btnEditar_Click(object sender, EventArgs e)
         {
-            if (!(dataGridViewReservas.CurrentRow?.DataBoundItem is Reserva seleccionada))
+            if (!(dgvReservas.CurrentRow?.DataBoundItem is Reserva seleccionada))
             {
                 MessageBox.Show("Seleccioná primero una reserva para editar.",
                                 "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // aquí, 'seleccionada' ya está definida
 
 
-            // Actualizamos el objeto con los valores nuevos
             seleccionada.FechaHora = dtpFecha.Value;
             seleccionada.DuracionHoras = (int)nudHoras.Value;
             seleccionada.CanchaId = (int)cmbCanchas.SelectedValue;
 
             try
             {
-                // Serializamos
                 var content = JsonSerializer.Serialize(seleccionada);
 
-                // --- Bloque using clásico en lugar de 'using var' ---
                 using (var body = new StringContent(
                     content, Encoding.UTF8, "application/json"))
                 {
@@ -189,7 +189,6 @@ namespace ReservasCanchaFutbol.UI
                     resp.EnsureSuccessStatusCode();
                 }
 
-                // Refrescamos la grilla
                 await CargarReservas();
                 MessageBox.Show("Reserva actualizada.",
                                 "Ok", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -203,10 +202,8 @@ namespace ReservasCanchaFutbol.UI
 
         private async void btnEliminar_Click(object sender, EventArgs e)
         {
-            // 1) Obtener la fila actual
-            var row = dataGridViewReservas.CurrentRow;
+            var row = dgvReservas.CurrentRow;
 
-            // 2) Verificar que exista y que su DataBoundItem sea una Reserva
             if (row == null || !(row.DataBoundItem is Reserva seleccionada))
             {
                 MessageBox.Show("Seleccioná primero una reserva para eliminar.",
@@ -214,7 +211,6 @@ namespace ReservasCanchaFutbol.UI
                 return;
             }
 
-            // 3) Confirmar
             var respuesta = MessageBox.Show(
                 $"¿Eliminar la reserva #{seleccionada.Id}?",
                 "Confirmar eliminación",
@@ -226,11 +222,9 @@ namespace ReservasCanchaFutbol.UI
 
             try
             {
-                // 4) Llamada DELETE
                 var resp = await _httpClient.DeleteAsync($"/api/reserva/{seleccionada.Id}");
                 resp.EnsureSuccessStatusCode();
 
-                // 5) Refrescar
                 await CargarReservas();
                 MessageBox.Show("Reserva eliminada.",
                                 "Ok", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -244,7 +238,7 @@ namespace ReservasCanchaFutbol.UI
 
         private void dgvReservas_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewReservas.CurrentRow?.DataBoundItem is Reserva seleccionada)
+            if (dgvReservas.CurrentRow?.DataBoundItem is Reserva seleccionada)
             {
                 dtpFecha.Value = seleccionada.FechaHora;
                 nudHoras.Value = seleccionada.DuracionHoras;
@@ -255,8 +249,8 @@ namespace ReservasCanchaFutbol.UI
         public class Reserva
         {
             public int Id { get; set; }
-            public int ClienteId { get; set; }
             public int CanchaId { get; set; }
+            public string Cancha { get; set; }
             public DateTime FechaHora { get; set; }
             public int DuracionHoras { get; set; }
         }
@@ -280,7 +274,6 @@ namespace ReservasCanchaFutbol.UI
         {
             var url = "https://localhost:5001/api/reserva";
 
-            // Usando la sintaxis clásica:
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(url);
@@ -294,7 +287,7 @@ namespace ReservasCanchaFutbol.UI
                     var reservas = JsonSerializer.Deserialize<List<Reserva>>(json,
                         new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-                    dataGridViewReservas.DataSource = reservas;
+                    dgvReservas.DataSource = reservas;
                 }
                 catch (Exception ex)
                 {
@@ -304,14 +297,22 @@ namespace ReservasCanchaFutbol.UI
             }
         }
 
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
 
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            UsuarioActual.Id = 0;
+            UsuarioActual.NombreUsuario = "";
+
+            var loginForm = new LoginForm();
+            loginForm.Show();
+
+            this.Close();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void lblUsuarioActual_Click(object sender, EventArgs e)
         {
-
+            // No hace nada, solo está para evitar el error
         }
+
     }
 }

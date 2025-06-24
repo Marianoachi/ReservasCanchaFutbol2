@@ -12,5 +12,6 @@ public class Reserva
     public int DuracionHoras { get; set; }
 
     public Cancha? Cancha { get; set; }
+    public int UsuarioId { get; set; }
 }
 

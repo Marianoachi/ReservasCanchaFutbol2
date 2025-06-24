@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Net.Http;
 using System.Net.Http.Json;
 using ReservasCanchaFutbol.UI;
+using ReservasCanchaFutbol2.Desktop.Models;
+
 
 
 namespace ReservasCanchaFutbol2.Desktop
@@ -31,22 +33,36 @@ namespace ReservasCanchaFutbol2.Desktop
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri("https://localhost:7259"); // o tu puerto real
+                httpClient.BaseAddress = new Uri("https://localhost:7259");
 
                 var response = await httpClient.PostAsJsonAsync("/api/usuario/login", usuario);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Login correcto: abrir el formulario principal
-                    var mainForm = new Form1(); // o Form1, según tu proyecto
+                    var data = await response.Content.ReadFromJsonAsync<Usuario>();
+                    UsuarioActual.Id = data.Id;
+                    UsuarioActual.NombreUsuario = data.NombreUsuario;
+
+                    var mainForm = new Form1();
                     mainForm.Show();
-                    this.Hide(); // Oculta el LoginForm
+                    this.Hide();
                 }
                 else
                 {
                     MessageBox.Show("Usuario o contraseña incorrectos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+            var registroForm = new RegistroForm();
+            registroForm.ShowDialog(); // Se abre como ventana modal, el usuario debe cerrarla para volver al login
+        }
+        public static class UsuarioActual
+        {
+            public static int Id;
+            public static string NombreUsuario;
         }
 
 

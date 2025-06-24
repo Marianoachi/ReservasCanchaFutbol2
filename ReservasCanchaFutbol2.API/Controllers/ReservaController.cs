@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ReservasCanchaFutbol2.API.Interfaces;
 using ReservasCanchaFutbol2.API.Models;
+using ReservasCanchaFutbol2.API.Data;
 
 namespace ReservasCanchaFutbol2.API.Controllers
 {
@@ -17,11 +19,17 @@ namespace ReservasCanchaFutbol2.API.Controllers
 
         // GET api/reserva
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetReservas([FromQuery] int? usuarioId)
         {
-            var lista = _service.ObtenerTodas();
-            return Ok(lista);
+            var reservas = _service.ObtenerTodas();
+
+            if (usuarioId.HasValue)
+                reservas = reservas.Where(r => r.UsuarioId == usuarioId.Value);
+
+            return Ok(reservas.ToList());
         }
+
+
 
         // GET api/reserva/5
         [HttpGet("{id}")]
@@ -40,9 +48,9 @@ namespace ReservasCanchaFutbol2.API.Controllers
 
             var creada = _service.Crear(
                 reserva.CanchaId,
-                reserva.ClienteNombre,
                 reserva.FechaHora,
-                reserva.DuracionHoras
+                reserva.DuracionHoras,
+                reserva.UsuarioId
             );
 
             return CreatedAtAction(
