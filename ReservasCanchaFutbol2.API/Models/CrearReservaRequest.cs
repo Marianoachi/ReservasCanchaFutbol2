@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ReservasCanchaFutbol2.Desktop.Models
+﻿namespace ReservasCanchaFutbol2.API.Models
 {
     public class CrearReservaRequest
     {
         public int CanchaId { get; set; }
-        public string ClienteNombre { get; set; }
         public DateTime FechaHora { get; set; }
         public int DuracionHoras { get; set; }
         public int UsuarioId { get; set; }
     }
-
 }

@@ -24,14 +24,14 @@ namespace ReservasCanchaFutbol2.API.Services
             return _repo.ObtenerPorId(id);
         }
 
-        public Reserva Crear(int canchaId, string clienteNombre, DateTime fechaHora, int duracionHoras)
+        public Reserva Crear(int canchaId, DateTime fechaHora, int duracionHoras, int usuarioId)
         {
             var nueva = new Reserva
             {
                 CanchaId = canchaId,
-                ClienteNombre = clienteNombre,
                 FechaHora = fechaHora,
-                DuracionHoras = duracionHoras
+                DuracionHoras = duracionHoras,
+                UsuarioId = usuarioId
             };
 
             _repo.Crear(nueva);

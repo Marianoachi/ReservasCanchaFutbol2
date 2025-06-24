@@ -33,9 +33,17 @@ namespace ReservasCanchaFutbol2.API.Repositories
 
         public void Actualizar(Reserva reserva)
         {
-            _ctx.Reservas.Update(reserva);
-            _ctx.SaveChanges();
+            var entidad = _ctx.Reservas.Find(reserva.Id);
+            if (entidad != null)
+            {
+                entidad.CanchaId = reserva.CanchaId;
+                entidad.FechaHora = reserva.FechaHora;
+                entidad.DuracionHoras = reserva.DuracionHoras;
+                entidad.UsuarioId = reserva.UsuarioId;
+                _ctx.SaveChanges();
+            }
         }
+
 
         public void Eliminar(int id)
         {

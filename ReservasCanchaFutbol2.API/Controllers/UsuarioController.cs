@@ -27,5 +27,20 @@ namespace ReservasCanchaFutbol2.API.Controllers
 
             return Ok(new { usuario.Id, usuario.NombreUsuario });
         }
+        [HttpPost]
+        public IActionResult Registrar([FromBody] Usuario nuevoUsuario)
+        {
+            if (string.IsNullOrWhiteSpace(nuevoUsuario.NombreUsuario) || string.IsNullOrWhiteSpace(nuevoUsuario.Contraseña))
+                return BadRequest("Usuario y contraseña son obligatorios.");
+
+            if (_context.Usuarios.Any(u => u.NombreUsuario == nuevoUsuario.NombreUsuario))
+                return Conflict("Ya existe un usuario con ese nombre.");
+
+            _context.Usuarios.Add(nuevoUsuario);
+            _context.SaveChanges();
+            return Ok();
+        }
+
     }
+
 }
