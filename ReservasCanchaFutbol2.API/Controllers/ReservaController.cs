@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ReservasCanchaFutbol2.API.Data;
 using ReservasCanchaFutbol2.API.Interfaces;
 using ReservasCanchaFutbol2.API.Models;
-using ReservasCanchaFutbol2.API.Data;
 
 namespace ReservasCanchaFutbol2.API.Controllers
 {
@@ -19,15 +20,24 @@ namespace ReservasCanchaFutbol2.API.Controllers
 
         // GET api/reserva
         [HttpGet]
-        public IActionResult GetReservas([FromQuery] int? usuarioId)
+        public IActionResult GetReservas([FromQuery] int? UsuarioId)
         {
             var reservas = _service.ObtenerTodas();
 
-            if (usuarioId.HasValue)
-                reservas = reservas.Where(r => r.UsuarioId == usuarioId.Value);
+            if (UsuarioId.HasValue)
+            {
+                reservas = reservas.Where(r => r.UsuarioId == UsuarioId.Value);
+                Console.WriteLine($"Filtro por UsuarioId={UsuarioId.Value}, total={reservas.Count()}");
+            }
+            else
+            {
+                Console.WriteLine($"Sin filtro, total={reservas.Count()}");
+            }
 
             return Ok(reservas.ToList());
         }
+
+
 
 
 
@@ -42,23 +52,24 @@ namespace ReservasCanchaFutbol2.API.Controllers
 
         // POST api/reserva
         [HttpPost]
-        public IActionResult Post([FromBody] Reserva reserva)
+        public IActionResult Post([FromBody] CrearReservaRequest reserva)
         {
-            if (reserva is null) return BadRequest();
-
-            var creada = _service.Crear(
-                reserva.CanchaId,
-                reserva.FechaHora,
-                reserva.DuracionHoras,
-                reserva.UsuarioId
-            );
-
-            return CreatedAtAction(
-                nameof(GetById),
-                new { id = creada.Id },
-                creada
-            );
+            try
+            {
+                var creada = _service.Crear(
+                    reserva.CanchaId,
+                    reserva.FechaHora,
+                    reserva.DuracionHoras,
+                    reserva.UsuarioId
+                );
+                return CreatedAtAction(nameof(GetById), new { id = creada.Id }, creada);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
         }
+
 
         // PUT api/reserva/5
         [HttpPut("{id}")]

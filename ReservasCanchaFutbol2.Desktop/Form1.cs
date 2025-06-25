@@ -20,7 +20,88 @@ namespace ReservasCanchaFutbol.UI
 
         public Form1()
         {
+            this.BackColor = Color.FromArgb(245, 245, 250);
             InitializeComponent();
+            dgvReservas.EnableHeadersVisualStyles = false;
+            dgvReservas.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(40, 167, 69);
+            dgvReservas.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvReservas.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dgvReservas.DefaultCellStyle.SelectionBackColor = Color.LightGreen;
+            dgvReservas.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvReservas.RowHeadersVisible = false;
+            dgvReservas.BorderStyle = BorderStyle.None;
+            lblFechaHora.BackColor = Color.FromArgb(220, 255, 255, 255);
+            lblDuracion.BackColor = Color.FromArgb(220, 255, 255, 255);
+            lblCancha.BackColor = Color.FromArgb(220, 255, 255, 255);
+
+            Label lblTitulo = new Label();
+            lblTitulo.Text = "Reserva tu cancha";
+            lblTitulo.Font = new Font("Segoe UI", 18, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.FromArgb(52, 73, 94);
+            lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
+            lblTitulo.Width = 350;
+            lblTitulo.Height = 40;
+            lblTitulo.Location = new Point((this.ClientSize.Width - lblTitulo.Width) / 2, 10);
+            this.Controls.Add(lblTitulo);
+            // Labels
+            lblFechaHora.BackColor = Color.Transparent;
+            lblFechaHora.ForeColor = Color.FromArgb(39, 174, 96);
+            lblFechaHora.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+            lblFechaHora.AutoSize = true;
+
+            lblDuracion.BackColor = Color.Transparent;
+            lblDuracion.ForeColor = Color.FromArgb(39, 174, 96);
+            lblDuracion.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+            lblDuracion.AutoSize = true;
+
+            lblCancha.BackColor = Color.Transparent;
+
+            nudHoras.ForeColor = Color.Black; // Negro
+            lblCancha.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+            lblCancha.AutoSize = true;
+
+            cmbCanchas.Font = new Font("Segoe UI", 11, FontStyle.Regular);
+            dtpFecha.Font = new Font("Segoe UI", 11, FontStyle.Regular);
+
+            cmbCanchas.BackColor = Color.White;
+
+            nudHoras.ForeColor = Color.Black; // Negro
+            dtpFecha.CalendarForeColor = Color.FromArgb(39, 174, 96);
+            dtpFecha.CalendarMonthBackground = Color.White;
+
+            //horas
+            nudHoras.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+            nudHoras.BackColor = Color.White;
+            nudHoras.ForeColor = Color.Black;
+            nudHoras.Minimum = 1;
+            nudHoras.Maximum = 6;
+            nudHoras.TextAlign = HorizontalAlignment.Center;
+
+
+
+            // Botones estilo flat y mismos tamaños
+            Button[] botones = { btnCrear, btnEditar, btnEliminar, btnCerrarSesion };
+            foreach (var btn in botones)
+            {
+                btn.FlatStyle = FlatStyle.Flat;
+                btn.BackColor = Color.White;
+                btn.ForeColor = Color.Black;
+                btn.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+
+            }
+
+            btnCrear.Text = "Crear Reserva";
+            btnEditar.Text = "Eliminar Reserva";
+            btnEliminar.Text = "Eliminar Reserva";
+            btnCerrarSesion.Text ="Cerrar Sesion";
+
+            // DataGridView estilizado
+            dgvReservas.BackgroundColor = Color.White;
+            dgvReservas.BorderStyle = BorderStyle.None;
+            dgvReservas.RowHeadersVisible = false;
+            dgvReservas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
 
             var handler = new HttpClientHandler
             {
@@ -34,9 +115,13 @@ namespace ReservasCanchaFutbol.UI
             };
 
             this.Load += Form1_Load;
+        }
 
 
-
+        public static class UsuarioActual
+        {
+            public static int Id;
+            public static string NombreUsuario;
         }
         private async void Form1_Load(object sender, EventArgs e)
         {
@@ -79,11 +164,7 @@ namespace ReservasCanchaFutbol.UI
         }
 
 
-        public static class UsuarioActual
-        {
-            public static int Id;
-            public static string NombreUsuario;
-        }
+
 
         private async Task CargarCanchas()
         {
@@ -120,7 +201,6 @@ namespace ReservasCanchaFutbol.UI
                 return;
             }
             var canchaSeleccionada = (Cancha)cmbCanchas.SelectedItem;
-
             // Validar fecha
             if (dtpFecha.Value < DateTime.Today)
             {
@@ -129,7 +209,7 @@ namespace ReservasCanchaFutbol.UI
                 return;
             }
 
-            // Validar duración
+            // Validar duracion
             if (nudHoras.Value < 1 || nudHoras.Value > 8)
             {
                 MessageBox.Show("La duración debe ser entre 1 y 8 horas.",
@@ -145,6 +225,7 @@ namespace ReservasCanchaFutbol.UI
                 DuracionHoras = (int)nudHoras.Value,
                 UsuarioId = UsuarioActual.Id
             };
+
 
             try
             {
@@ -226,8 +307,6 @@ namespace ReservasCanchaFutbol.UI
                 resp.EnsureSuccessStatusCode();
 
                 await CargarReservas();
-                MessageBox.Show("Reserva eliminada.",
-                                "Ok", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -246,13 +325,14 @@ namespace ReservasCanchaFutbol.UI
             }
         }
 
-        public class Reserva
+        public class CrearReservaRequest
         {
             public int Id { get; set; }
             public int CanchaId { get; set; }
             public string Cancha { get; set; }
             public DateTime FechaHora { get; set; }
             public int DuracionHoras { get; set; }
+            public int UsuarioId   { get; set; }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -270,33 +350,7 @@ namespace ReservasCanchaFutbol.UI
 
         }
 
-        private async void btnCargar_Click(object sender, EventArgs e)
-        {
-            var url = "https://localhost:5001/api/reserva";
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(url);
-
-                try
-                {
-                    var response = await client.GetAsync("");
-                    response.EnsureSuccessStatusCode();
-
-                    var json = await response.Content.ReadAsStringAsync();
-                    var reservas = JsonSerializer.Deserialize<List<Reserva>>(json,
-                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-                    dgvReservas.DataSource = reservas;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error al cargar reservas:\n{ex.Message}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
+     
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {

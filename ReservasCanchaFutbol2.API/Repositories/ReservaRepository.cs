@@ -14,10 +14,18 @@ namespace ReservasCanchaFutbol2.API.Repositories
         {
             _ctx = ctx;
         }
-
         public IEnumerable<Reserva> ObtenerTodas()
         {
             return _ctx.Reservas.ToList();
+        }
+        public IEnumerable<Reserva> ObtenerPorUsuario(int usuarioId)
+        {
+            return _ctx.Reservas.Where(r => r.UsuarioId == usuarioId).ToList();
+        }
+
+        public IEnumerable<Reserva> ObtenerTodas(int UsuarioId)
+        {
+            return _ctx.Reservas.Where(r => r.UsuarioId == UsuarioId).ToList();
         }
 
         public Reserva? ObtenerPorId(int id)
@@ -27,9 +35,25 @@ namespace ReservasCanchaFutbol2.API.Repositories
 
         public void Crear(Reserva reserva)
         {
+            // Verificar que exista la cancha
+            bool canchaExiste = _ctx.Canchas.Any(c => c.Id == reserva.CanchaId);
+            // Verificar que exista el usuario
+            bool usuarioExiste = _ctx.Usuarios.Any(u => u.Id == reserva.UsuarioId);
+
+            if (!canchaExiste)
+            {
+                throw new Exception("La cancha seleccionada no existe.");
+            }
+            if (!usuarioExiste)
+            {
+                throw new Exception("El usuario no existe.");
+            }
+
+            // Si todo está ok, guardar la reserva
             _ctx.Reservas.Add(reserva);
             _ctx.SaveChanges();
         }
+
 
         public void Actualizar(Reserva reserva)
         {
@@ -54,5 +78,6 @@ namespace ReservasCanchaFutbol2.API.Repositories
                 _ctx.SaveChanges();
             }
         }
+
     }
 }

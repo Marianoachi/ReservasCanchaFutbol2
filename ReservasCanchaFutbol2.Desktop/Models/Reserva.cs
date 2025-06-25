@@ -13,6 +13,8 @@ namespace ReservasCanchaFutbol2.Desktop.Models
         public string ClienteNombre { get; set; }
         public DateTime FechaHora { get; set; }
         public int DuracionHoras { get; set; }
+        public int UsuarioId { get; set; }
+        public Usuario Usuario { get; set; }
     }
 
 }

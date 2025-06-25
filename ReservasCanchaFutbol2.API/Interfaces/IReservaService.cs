@@ -5,7 +5,7 @@ public interface IReservaService
 {
     IEnumerable<Reserva> ObtenerTodas();
     Reserva? ObtenerPorId(int id);
-    Reserva Crear(int canchaId, DateTime fechaHora, int duracionHoras, int usuarioId);
+    Reserva Crear(int canchaId, DateTime fechaHora, int duracionHoras, int UsuarioId);
     void Actualizar(Reserva reserva);
     void Eliminar(int id);
 }
