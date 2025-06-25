@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using ReservasCanchaFutbol2.API.Data.Models;
 using ReservasCanchaFutbol2.API.Models;
 
 namespace ReservasCanchaFutbol2.API.Data
@@ -14,7 +13,6 @@ namespace ReservasCanchaFutbol2.API.Data
 
         public DbSet<Cancha> Canchas { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
-        public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
 
@@ -26,9 +24,9 @@ namespace ReservasCanchaFutbol2.API.Data
             if (!context.Canchas.Any())
             {
                 context.Canchas.AddRange(
-                    new Cancha { Nombre = "Cancha 1", Tipo = "Fútbol 5", PrecioPorHora = 2500 },
-                    new Cancha { Nombre = "Cancha 2", Tipo = "Fútbol 7", PrecioPorHora = 3500 },
-                    new Cancha { Nombre = "Cancha Techada", Tipo = "Fútbol 5", PrecioPorHora = 4000 }
+                    new Cancha { Nombre = "Cancha Futbol 5", Tipo = "Fútbol 5", PrecioPorHora = 2500 },
+                    new Cancha { Nombre = "Cancha Futbol 7", Tipo = "Fútbol 7", PrecioPorHora = 3500 },
+                    new Cancha { Nombre = "Cancha Futbol 5 Techada", Tipo = "Fútbol 5", PrecioPorHora = 4000 }
                 );
                 context.SaveChanges();
                 if (!context.Usuarios.Any())

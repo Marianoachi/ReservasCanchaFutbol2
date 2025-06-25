@@ -6,7 +6,6 @@ public class Reserva
     public int CanchaId { get; set; }
 
     // nuevo campo para el nombre de quien reserva
-    public string ClienteNombre { get; set; } = string.Empty;
 
     public DateTime FechaHora { get; set; }
     public int DuracionHoras { get; set; }

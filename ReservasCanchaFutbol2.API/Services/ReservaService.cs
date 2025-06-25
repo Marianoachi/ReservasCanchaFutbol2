@@ -24,19 +24,36 @@ namespace ReservasCanchaFutbol2.API.Services
             return _repo.ObtenerPorId(id);
         }
 
-        public Reserva Crear(int canchaId, DateTime fechaHora, int duracionHoras, int usuarioId)
+        public Reserva Crear(int canchaId, DateTime fechaHora, int duracionHoras, int UsuarioId)
         {
+            var nuevaInicio = fechaHora;
+            var nuevaFin = fechaHora.AddHours(duracionHoras);
+
+            var reservasCancha = _repo.ObtenerTodas()
+                .Where(r => r.CanchaId == canchaId);
+
+            bool haySolapamiento = reservasCancha.Any(r =>
+                (nuevaInicio < r.FechaHora.AddHours(r.DuracionHoras)) &&
+                (nuevaFin > r.FechaHora)
+            );
+
+            if (haySolapamiento)
+            {
+                throw new InvalidOperationException("Ya existe una reserva en ese horario para esta cancha.");
+            }
+
             var nueva = new Reserva
             {
                 CanchaId = canchaId,
                 FechaHora = fechaHora,
                 DuracionHoras = duracionHoras,
-                UsuarioId = usuarioId
+                UsuarioId = UsuarioId
             };
 
             _repo.Crear(nueva);
             return nueva;
         }
+
 
         public void Actualizar(Reserva reserva)
         {
