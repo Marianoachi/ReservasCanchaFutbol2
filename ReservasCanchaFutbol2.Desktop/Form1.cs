@@ -137,36 +137,18 @@ namespace ReservasCanchaFutbol.UI
         {
             try
             {
-                List<Reserva> reservas;
-
-                if (UsuarioActual.NombreUsuario == "admin")
-                {
-                    reservas = await _httpClient.GetFromJsonAsync<List<Reserva>>(
-                        "api/reserva",
-                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                }
-                else
-                {
-                    var usuarioId = UsuarioActual.Id;
-                    reservas = await _httpClient.GetFromJsonAsync<List<Reserva>>(
-                        $"api/reserva?usuarioId={usuarioId}",
-                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                }
+                var usuarioId = UsuarioActual.Id; // ID del usuario logueado
+                var reservas = await _httpClient.GetFromJsonAsync<List<Reserva>>(
+                    $"api/reserva?usuarioId={usuarioId}",
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                 dgvReservas.DataSource = reservas;
-                dgvReservas.Columns["Id"].Visible = false;
-                dgvReservas.Columns["CanchaId"].Visible = false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Error al cargar reservas:\n{ex}\n\nInnerException:\n{ex.InnerException}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar reservas: " + ex.Message);
             }
         }
-
-
-
 
         private async Task CargarCanchas()
         {

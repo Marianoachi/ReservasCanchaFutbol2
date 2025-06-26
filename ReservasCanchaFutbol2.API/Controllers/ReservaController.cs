@@ -21,22 +21,17 @@ namespace ReservasCanchaFutbol2.API.Controllers
 
         // GET api/reserva
         [HttpGet]
-        public IActionResult GetReservas([FromQuery] int? UsuarioId)
+        [HttpGet]
+        public IActionResult GetReservas([FromQuery] int? usuarioId)
         {
             var reservas = _service.ObtenerTodas();
 
-            if (UsuarioId.HasValue)
-            {
-                reservas = reservas.Where(r => r.UsuarioId == UsuarioId.Value);
-                Console.WriteLine($"Filtro por UsuarioId={UsuarioId.Value}, total={reservas.Count()}");
-            }
-            else
-            {
-                Console.WriteLine($"Sin filtro, total={reservas.Count()}");
-            }
+            if (usuarioId.HasValue)
+                reservas = reservas.Where(r => r.UsuarioId == usuarioId.Value);
 
             return Ok(reservas.ToList());
         }
+
 
 
         [HttpGet("usuario/{usuarioId}")]
