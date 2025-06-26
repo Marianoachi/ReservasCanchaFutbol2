@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ReservasCanchaFutbol2.API.Data;
 using ReservasCanchaFutbol2.API.Interfaces;
 using ReservasCanchaFutbol2.API.Models;
+using ReservasCanchaFutbol2.API.Services;
 
 namespace ReservasCanchaFutbol2.API.Controllers
 {
@@ -38,6 +39,12 @@ namespace ReservasCanchaFutbol2.API.Controllers
         }
 
 
+        [HttpGet("usuario/{usuarioId}")]
+        public IActionResult ObtenerPorUsuario(int UsuarioId)
+        {
+            var reservas = _service.ObtenerPorUsuario(UsuarioId);
+            return Ok(reservas);
+        }
 
 
 

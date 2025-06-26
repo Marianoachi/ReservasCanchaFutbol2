@@ -36,12 +36,12 @@
             this.dgvReservas = new System.Windows.Forms.DataGridView();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.lblUsuarioActual = new System.Windows.Forms.Label();
-            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
-            this.lblFechaHora = new System.Windows.Forms.Label();
             this.nudHoras = new System.Windows.Forms.NumericUpDown();
             this.lblDuracion = new System.Windows.Forms.Label();
             this.lblCancha = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
+            this.lblFechaHora = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReservas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHoras)).BeginInit();
             this.SuspendLayout();
@@ -127,28 +127,6 @@
             this.lblUsuarioActual.Text = "label3";
             this.lblUsuarioActual.Click += new System.EventHandler(this.lblUsuarioActual_Click);
             // 
-            // dtpFecha
-            // 
-            this.dtpFecha.CustomFormat = "\"dd/MM/yyyy HH:mm\"";
-            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFecha.Location = new System.Drawing.Point(81, 135);
-            this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.ShowUpDown = true;
-            this.dtpFecha.Size = new System.Drawing.Size(249, 22);
-            this.dtpFecha.TabIndex = 9;
-            this.dtpFecha.Tag = "";
-            this.dtpFecha.ValueChanged += new System.EventHandler(this.dtpFecha_ValueChanged);
-            // 
-            // lblFechaHora
-            // 
-            this.lblFechaHora.AutoSize = true;
-            this.lblFechaHora.Location = new System.Drawing.Point(78, 94);
-            this.lblFechaHora.Name = "lblFechaHora";
-            this.lblFechaHora.Size = new System.Drawing.Size(85, 16);
-            this.lblFechaHora.TabIndex = 10;
-            this.lblFechaHora.Text = "Fecha y hora";
-            this.lblFechaHora.Click += new System.EventHandler(this.label2_Click);
-            // 
             // nudHoras
             // 
             this.nudHoras.Location = new System.Drawing.Point(384, 135);
@@ -194,8 +172,30 @@
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Location = new System.Drawing.Point(62, 36);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(0, 20);
+            this.lblTitulo.Size = new System.Drawing.Size(0, 16);
             this.lblTitulo.TabIndex = 25;
+            // 
+            // dtpFecha
+            // 
+            this.dtpFecha.CustomFormat = "\"dd/MM/yyyy HH:mm\"";
+            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFecha.Location = new System.Drawing.Point(81, 135);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.ShowUpDown = true;
+            this.dtpFecha.Size = new System.Drawing.Size(249, 22);
+            this.dtpFecha.TabIndex = 9;
+            this.dtpFecha.Tag = "";
+            this.dtpFecha.ValueChanged += new System.EventHandler(this.dtpFecha_ValueChanged);
+            // 
+            // lblFechaHora
+            // 
+            this.lblFechaHora.AutoSize = true;
+            this.lblFechaHora.Location = new System.Drawing.Point(78, 94);
+            this.lblFechaHora.Name = "lblFechaHora";
+            this.lblFechaHora.Size = new System.Drawing.Size(85, 16);
+            this.lblFechaHora.TabIndex = 10;
+            this.lblFechaHora.Text = "Fecha y hora";
+            this.lblFechaHora.Click += new System.EventHandler(this.label2_Click);
             // 
             // Form1
             // 
@@ -238,12 +238,12 @@
         private System.Windows.Forms.DataGridView dgvReservas;
         private System.Windows.Forms.Button btnCerrarSesion;
         private System.Windows.Forms.Label lblUsuarioActual;
-        private System.Windows.Forms.DateTimePicker dtpFecha;
-        private System.Windows.Forms.Label lblFechaHora;
         private System.Windows.Forms.NumericUpDown nudHoras;
         private System.Windows.Forms.Label lblDuracion;
         private System.Windows.Forms.Label lblCancha;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.DateTimePicker dtpFecha;
+        private System.Windows.Forms.Label lblFechaHora;
     }
 }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ReservasCanchaFutbol2.API.Interfaces;
 using ReservasCanchaFutbol2.API.Models;
+using ReservasCanchaFutbol2.API.Repositories;
 
 namespace ReservasCanchaFutbol2.API.Services
 {
@@ -17,6 +18,10 @@ namespace ReservasCanchaFutbol2.API.Services
         public IEnumerable<Reserva> ObtenerTodas()
         {
             return _repo.ObtenerTodas();
+        }
+        public IEnumerable<Reserva> ObtenerPorUsuario(int usuarioId)
+        {
+            return _repo.ObtenerPorUsuario(usuarioId);
         }
 
         public Reserva? ObtenerPorId(int id)

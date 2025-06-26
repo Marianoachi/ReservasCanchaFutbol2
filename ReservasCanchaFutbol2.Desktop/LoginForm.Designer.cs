@@ -56,7 +56,7 @@
             // 
             this.btnLogin.Location = new System.Drawing.Point(273, 287);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(149, 44);
+            this.btnLogin.Size = new System.Drawing.Size(135, 44);
             this.btnLogin.TabIndex = 2;
             this.btnLogin.Text = "Iniciar Sesion";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -64,9 +64,9 @@
             // 
             // btnRegistrarse
             // 
-            this.btnRegistrarse.Location = new System.Drawing.Point(439, 287);
+            this.btnRegistrarse.Location = new System.Drawing.Point(432, 287);
             this.btnRegistrarse.Name = "btnRegistrarse";
-            this.btnRegistrarse.Size = new System.Drawing.Size(147, 44);
+            this.btnRegistrarse.Size = new System.Drawing.Size(140, 44);
             this.btnRegistrarse.TabIndex = 3;
             this.btnRegistrarse.Text = "Registrarse";
             this.btnRegistrarse.UseVisualStyleBackColor = true;

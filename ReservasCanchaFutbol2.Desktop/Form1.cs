@@ -65,7 +65,7 @@ namespace ReservasCanchaFutbol.UI
 
             cmbCanchas.BackColor = Color.White;
 
-            nudHoras.ForeColor = Color.Black; // Negro
+            nudHoras.ForeColor = Color.Black;
             dtpFecha.CalendarForeColor = Color.FromArgb(39, 174, 96);
             dtpFecha.CalendarMonthBackground = Color.White;
 
@@ -91,7 +91,7 @@ namespace ReservasCanchaFutbol.UI
             }
 
             btnCrear.Text = "Crear Reserva";
-            btnEditar.Text = "Eliminar Reserva";
+            btnEditar.Text = "Editar Reserva";
             btnEliminar.Text = "Eliminar Reserva";
             btnCerrarSesion.Text ="Cerrar Sesion";
 
@@ -154,6 +154,8 @@ namespace ReservasCanchaFutbol.UI
                 }
 
                 dgvReservas.DataSource = reservas;
+                dgvReservas.Columns["Id"].Visible = false;
+                dgvReservas.Columns["CanchaId"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -227,6 +229,7 @@ namespace ReservasCanchaFutbol.UI
             };
 
 
+
             try
             {
                 var response = await _httpClient.PostAsJsonAsync("/api/reserva", reserva);
@@ -238,7 +241,7 @@ namespace ReservasCanchaFutbol.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al crear la reserva:\n{ex.Message}",
+                MessageBox.Show($"Error al crear la reserva: Ya existe una reserva en este horario",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

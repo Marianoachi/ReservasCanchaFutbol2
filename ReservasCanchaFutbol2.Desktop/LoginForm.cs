@@ -116,7 +116,6 @@ namespace ReservasCanchaFutbol2.Desktop
                     var data = await response.Content.ReadFromJsonAsync<Usuario>();
                     UsuarioActual.Id = data.Id;
 
-                    MessageBox.Show($"UsuarioActual.Id actual: {UsuarioActual.Id}");
                     UsuarioActual.NombreUsuario = data.NombreUsuario;
 
 
