@@ -1,53 +1,106 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ReservasCanchaFutbol2.API.Data;
 using ReservasCanchaFutbol2.API.Interfaces;
+using ReservasCanchaFutbol2.API.Models;
+using ReservasCanchaFutbol2.API.Services;
 
-namespace ReservasCanchaFutbol2.API.Controllers;
-[ApiController]
-[Route("api/[controller]")]
-public class ReservaController : ControllerBase
+namespace ReservasCanchaFutbol2.API.Controllers
 {
-    private readonly IReservaService _service;
-
-    public ReservaController(IReservaService service)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ReservaController : ControllerBase
     {
-        _service = service;
+        private readonly IReservaService _service;
+
+        public ReservaController(IReservaService service)
+        {
+            _service = service;
+        }
+
+        // GET api/reserva
+        [HttpGet]
+        public IActionResult GetReservas([FromQuery] int? UsuarioId)
+        {
+            var reservas = _service.ObtenerTodas();
+
+            if (UsuarioId.HasValue)
+            {
+                reservas = reservas.Where(r => r.UsuarioId == UsuarioId.Value);
+                Console.WriteLine($"Filtro por UsuarioId={UsuarioId.Value}, total={reservas.Count()}");
+            }
+            else
+            {
+                Console.WriteLine($"Sin filtro, total={reservas.Count()}");
+            }
+
+            return Ok(reservas.ToList());
+        }
+
+
+        [HttpGet("usuario/{usuarioId}")]
+        public IActionResult ObtenerPorUsuario(int UsuarioId)
+        {
+            var reservas = _service.ObtenerPorUsuario(UsuarioId);
+            return Ok(reservas);
+        }
+
+
+
+        // GET api/reserva/5
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var reserva = _service.ObtenerPorId(id);
+            if (reserva is null) return NotFound();
+            return Ok(reserva);
+        }
+
+        // POST api/reserva
+        [HttpPost]
+        public IActionResult Post([FromBody] CrearReservaRequest reserva)
+        {
+            try
+            {
+                var creada = _service.Crear(
+                    reserva.CanchaId,
+                    reserva.FechaHora,
+                    reserva.DuracionHoras,
+                    reserva.UsuarioId
+                );
+                return CreatedAtAction(nameof(GetById), new { id = creada.Id }, creada);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { mensaje = ex.Message });
+            }
+        }
+
+
+        // PUT api/reserva/5
+        [HttpPut("{id}")]
+        public IActionResult Actualizar(int id, [FromBody] Reserva reserva)
+        {
+            if (reserva is null || id != reserva.Id)
+                return BadRequest();
+
+            var existente = _service.ObtenerPorId(id);
+            if (existente is null) return NotFound();
+
+            _service.Actualizar(reserva);
+            return NoContent();
+        }
+
+        // DELETE api/reserva/5
+        [HttpDelete("{id}")]
+        public IActionResult Eliminar(int id)
+        {
+            var existente = _service.ObtenerPorId(id);
+            if (existente is null) return NotFound();
+
+            _service.Eliminar(id);
+            return NoContent();
+        }
     }
-
-
-    [HttpPost]
-    public IActionResult Post(int canchaId, int clienteId, DateTime fechaHora, int duracionHoras)
-    {
-        var reserva = _service.Crear(canchaId, clienteId, fechaHora, duracionHoras);
-        return Ok(reserva);
-    }
-    [HttpGet("{id}")]
-    public ActionResult<Reserva> ObtenerPorId(int id)
-    {
-        var reserva = _service.ObtenerPorId(id);
-        return reserva is null ? NotFound() : Ok(reserva);
-    }
-
-    [HttpPut("{id}")]
-    public IActionResult Actualizar(int id, [FromBody] Reserva reserva)
-    {
-        var existente = _service.ObtenerPorId(id);
-        if (existente is null)
-            return NotFound();
-
-        reserva.Id = id;
-        _service.Actualizar(reserva);
-        return NoContent();
-    }
-
-    [HttpDelete("{id}")]
-    public IActionResult Eliminar(int id)
-    {
-        var existente = _service.ObtenerPorId(id);
-        if (existente is null)
-            return NotFound();
-
-        _service.Eliminar(id);
-        return NoContent();
-    }
-
 }

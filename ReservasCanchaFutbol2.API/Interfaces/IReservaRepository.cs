@@ -8,5 +8,5 @@ public interface IReservaRepository
     void Crear(Reserva reserva);//recibo el objeto Reserva y lo guardo
     void Actualizar(Reserva reserva);
     void Eliminar(int id);
-
+    IEnumerable<Reserva> ObtenerPorUsuario(int UsuarioId);
 }

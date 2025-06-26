@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.dgvReservas = new System.Windows.Forms.DataGridView();
-            this.txtClienteId = new System.Windows.Forms.TextBox();
-            this.txtCanchaId = new System.Windows.Forms.TextBox();
-            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.nudHoras = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
             this.btnCrear = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.cmbCanchas = new System.Windows.Forms.ComboBox();
+            this.dgvReservas = new System.Windows.Forms.DataGridView();
+            this.btnCerrarSesion = new System.Windows.Forms.Button();
+            this.lblUsuarioActual = new System.Windows.Forms.Label();
+            this.nudHoras = new System.Windows.Forms.NumericUpDown();
+            this.lblDuracion = new System.Windows.Forms.Label();
+            this.lblCancha = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
+            this.lblFechaHora = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReservas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHoras)).BeginInit();
             this.SuspendLayout();
@@ -54,73 +54,82 @@
             this.label1.Size = new System.Drawing.Size(0, 16);
             this.label1.TabIndex = 0;
             // 
+            // btnCrear
+            // 
+            this.btnCrear.BackColor = System.Drawing.SystemColors.Window;
+            this.btnCrear.Location = new System.Drawing.Point(299, 197);
+            this.btnCrear.Name = "btnCrear";
+            this.btnCrear.Size = new System.Drawing.Size(135, 35);
+            this.btnCrear.TabIndex = 15;
+            this.btnCrear.Text = "Crear";
+            this.btnCrear.UseVisualStyleBackColor = false;
+            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(639, 197);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(151, 35);
+            this.btnEliminar.TabIndex = 16;
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(456, 197);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(167, 35);
+            this.btnEditar.TabIndex = 17;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
+            // cmbCanchas
+            // 
+            this.cmbCanchas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCanchas.FormattingEnabled = true;
+            this.cmbCanchas.Location = new System.Drawing.Point(589, 135);
+            this.cmbCanchas.Name = "cmbCanchas";
+            this.cmbCanchas.Size = new System.Drawing.Size(201, 24);
+            this.cmbCanchas.TabIndex = 19;
+            this.cmbCanchas.SelectedIndexChanged += new System.EventHandler(this.cmbCanchas_SelectedIndexChanged);
+            // 
             // dgvReservas
             // 
             this.dgvReservas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvReservas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReservas.Location = new System.Drawing.Point(38, 306);
+            this.dgvReservas.Location = new System.Drawing.Point(20, 256);
             this.dgvReservas.Name = "dgvReservas";
             this.dgvReservas.ReadOnly = true;
             this.dgvReservas.RowHeadersWidth = 51;
             this.dgvReservas.RowTemplate.Height = 24;
             this.dgvReservas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReservas.Size = new System.Drawing.Size(514, 150);
+            this.dgvReservas.Size = new System.Drawing.Size(816, 138);
             this.dgvReservas.TabIndex = 6;
             // 
-            // txtClienteId
+            // btnCerrarSesion
             // 
-            this.txtClienteId.Location = new System.Drawing.Point(267, 48);
-            this.txtClienteId.Name = "txtClienteId";
-            this.txtClienteId.Size = new System.Drawing.Size(100, 22);
-            this.txtClienteId.TabIndex = 7;
+            this.btnCerrarSesion.Location = new System.Drawing.Point(614, 400);
+            this.btnCerrarSesion.Name = "btnCerrarSesion";
+            this.btnCerrarSesion.Size = new System.Drawing.Size(176, 35);
+            this.btnCerrarSesion.TabIndex = 22;
+            this.btnCerrarSesion.Text = "Cerrar sesión";
+            this.btnCerrarSesion.UseVisualStyleBackColor = true;
+            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
             // 
-            // txtCanchaId
+            // lblUsuarioActual
             // 
-            this.txtCanchaId.Location = new System.Drawing.Point(79, 48);
-            this.txtCanchaId.Name = "txtCanchaId";
-            this.txtCanchaId.Size = new System.Drawing.Size(100, 22);
-            this.txtCanchaId.TabIndex = 8;
-            // 
-            // dtpFecha
-            // 
-            this.dtpFecha.Location = new System.Drawing.Point(310, 207);
-            this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(200, 22);
-            this.dtpFecha.TabIndex = 9;
-            this.dtpFecha.Tag = "";
-            this.dtpFecha.ValueChanged += new System.EventHandler(this.dtpFecha_ValueChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(307, 168);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 16);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Fecha y hora";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(76, 29);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 16);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Cancha ID";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(264, 29);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 16);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Cliente ID";
+            this.lblUsuarioActual.AutoSize = true;
+            this.lblUsuarioActual.Location = new System.Drawing.Point(746, 9);
+            this.lblUsuarioActual.Name = "lblUsuarioActual";
+            this.lblUsuarioActual.Size = new System.Drawing.Size(44, 16);
+            this.lblUsuarioActual.TabIndex = 23;
+            this.lblUsuarioActual.Text = "label3";
+            this.lblUsuarioActual.Click += new System.EventHandler(this.lblUsuarioActual_Click);
             // 
             // nudHoras
             // 
-            this.nudHoras.Location = new System.Drawing.Point(79, 207);
+            this.nudHoras.Location = new System.Drawing.Point(384, 135);
             this.nudHoras.Maximum = new decimal(new int[] {
             24,
             0,
@@ -140,77 +149,78 @@
             0,
             0});
             // 
-            // label5
+            // lblDuracion
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(73, 168);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(106, 16);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "Duracion(horas):";
+            this.lblDuracion.AutoSize = true;
+            this.lblDuracion.Location = new System.Drawing.Point(381, 94);
+            this.lblDuracion.Name = "lblDuracion";
+            this.lblDuracion.Size = new System.Drawing.Size(106, 16);
+            this.lblDuracion.TabIndex = 14;
+            this.lblDuracion.Text = "Duracion(horas):";
             // 
-            // btnCrear
+            // lblCancha
             // 
-            this.btnCrear.Location = new System.Drawing.Point(70, 252);
-            this.btnCrear.Name = "btnCrear";
-            this.btnCrear.Size = new System.Drawing.Size(75, 23);
-            this.btnCrear.TabIndex = 15;
-            this.btnCrear.Text = "Crear";
-            this.btnCrear.UseVisualStyleBackColor = true;
-            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
+            this.lblCancha.AutoSize = true;
+            this.lblCancha.Location = new System.Drawing.Point(586, 94);
+            this.lblCancha.Name = "lblCancha";
+            this.lblCancha.Size = new System.Drawing.Size(91, 16);
+            this.lblCancha.TabIndex = 24;
+            this.lblCancha.Text = "Elegir Cancha";
             // 
-            // btnEliminar
+            // lblTitulo
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(564, 252);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 23);
-            this.btnEliminar.TabIndex = 16;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Location = new System.Drawing.Point(62, 36);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(0, 16);
+            this.lblTitulo.TabIndex = 25;
             // 
-            // btnEditar
+            // dtpFecha
             // 
-            this.btnEditar.Location = new System.Drawing.Point(310, 252);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 23);
-            this.btnEditar.TabIndex = 17;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            this.dtpFecha.CustomFormat = "\"dd/MM/yyyy HH:mm\"";
+            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFecha.Location = new System.Drawing.Point(81, 135);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.ShowUpDown = true;
+            this.dtpFecha.Size = new System.Drawing.Size(249, 22);
+            this.dtpFecha.TabIndex = 9;
+            this.dtpFecha.Tag = "";
+            this.dtpFecha.ValueChanged += new System.EventHandler(this.dtpFecha_ValueChanged);
             // 
-            // cmbCanchas
+            // lblFechaHora
             // 
-            this.cmbCanchas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCanchas.FormattingEnabled = true;
-            this.cmbCanchas.Location = new System.Drawing.Point(564, 160);
-            this.cmbCanchas.Name = "cmbCanchas";
-            this.cmbCanchas.Size = new System.Drawing.Size(121, 24);
-            this.cmbCanchas.TabIndex = 19;
-            this.cmbCanchas.SelectedIndexChanged += new System.EventHandler(this.cmbCanchas_SelectedIndexChanged);
+            this.lblFechaHora.AutoSize = true;
+            this.lblFechaHora.Location = new System.Drawing.Point(78, 94);
+            this.lblFechaHora.Name = "lblFechaHora";
+            this.lblFechaHora.Size = new System.Drawing.Size(85, 16);
+            this.lblFechaHora.TabIndex = 10;
+            this.lblFechaHora.Text = "Fecha y hora";
+            this.lblFechaHora.Click += new System.EventHandler(this.label2_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(865, 485);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ClientSize = new System.Drawing.Size(848, 447);
+            this.Controls.Add(this.lblTitulo);
+            this.Controls.Add(this.lblCancha);
+            this.Controls.Add(this.lblUsuarioActual);
+            this.Controls.Add(this.btnCerrarSesion);
             this.Controls.Add(this.cmbCanchas);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnCrear);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblDuracion);
             this.Controls.Add(this.nudHoras);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.dtpFecha);
-            this.Controls.Add(this.txtCanchaId);
-            this.Controls.Add(this.txtClienteId);
+            this.Controls.Add(this.lblFechaHora);
             this.Controls.Add(this.dgvReservas);
+            this.Controls.Add(this.dtpFecha);
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.Cross;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReservas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHoras)).EndInit();
             this.ResumeLayout(false);
@@ -221,19 +231,19 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgvReservas;
-        private System.Windows.Forms.TextBox txtClienteId;
-        private System.Windows.Forms.TextBox txtCanchaId;
-        private System.Windows.Forms.DateTimePicker dtpFecha;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown nudHoras;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.ComboBox cmbCanchas;
+        private System.Windows.Forms.DataGridView dgvReservas;
+        private System.Windows.Forms.Button btnCerrarSesion;
+        private System.Windows.Forms.Label lblUsuarioActual;
+        private System.Windows.Forms.NumericUpDown nudHoras;
+        private System.Windows.Forms.Label lblDuracion;
+        private System.Windows.Forms.Label lblCancha;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.DateTimePicker dtpFecha;
+        private System.Windows.Forms.Label lblFechaHora;
     }
 }
 
